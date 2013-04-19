@@ -41,13 +41,37 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="MY APPLICATION" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0"/>
-            <TextBlock Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Margin="9,-7,10,0" Style="{StaticResource PhoneTextTitle1Style}" Foreground="#FFFF8C01" TextAlignment="Center">
+            	<Run Text="Joker">
+            		<Run.Foreground>
+            			<SolidColorBrush Color="#FFF98800">
+            				<SolidColorBrush.RelativeTransform>
+            					<MatrixTransform Matrix="Identity"/>
+            				</SolidColorBrush.RelativeTransform>
+            				<SolidColorBrush.Transform>
+            					<MatrixTransform Matrix="Identity"/>
+            				</SolidColorBrush.Transform>
+            			</SolidColorBrush>
+            		</Run.Foreground>
+            	</Run>
+            </TextBlock>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <Button x:Name="btnStartRecognition" Content="Button" HorizontalAlignment="Left" Margin="159,37,0,0" VerticalAlignment="Top" Click="btnStartRecognition_Click_1"/>
+            <Image Source="qReMvI_VBJw.jpg" Stretch="Fill" Opacity="0.495"/>
+
+            <Button x:Name="btnStartRecognition" Content="I wanna more fun!" HorizontalAlignment="Center" Margin="0,0,0,-5" VerticalAlignment="Top" Click="btnStartRecognition_Click_1" Foreground="#FFFF8C01">
+            	<Button.Background>
+            		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            			<GradientStop Color="#83515151" Offset="0.292"/>
+            			<GradientStop Color="#9E444242" Offset="1"/>
+            			<GradientStop Color="#71DEDEDE"/>
+            			<GradientStop Color="#8C0A0909" Offset="0.85"/>
+            		</LinearGradientBrush>
+            	</Button.Background>
+            </Button>
+            <Image HorizontalAlignment="Left" Height="100" Margin="251,206,0,0" VerticalAlignment="Top" Width="100"/>
 
         </Grid>
 
