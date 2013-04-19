@@ -141,9 +141,15 @@
     <Content Include="Assets\Tiles\IconicTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TongueTwisterTemplate.xml" />
-    <Content Include="JokerCommands.xml" />
-    <Content Include="JokeTemplate.xml" />
+    <Content Include="TongueTwisterTemplate.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="JokerCommands.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="JokeTemplate.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="SRGSGrammar1.xml" />
   </ItemGroup>
   <ItemGroup>

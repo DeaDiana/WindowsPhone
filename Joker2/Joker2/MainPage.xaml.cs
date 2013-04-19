@@ -19,11 +19,15 @@ namespace Joker2
     public partial class MainPage : PhoneApplicationPage
     {
         public const string VoiceCommandFile = @"JokerCommands.xml";
-        Dictionary<string, string> jokeCollection;
-        Dictionary<string, string> tongueTwisterCollection;
+        List<string> jokeCollection;
+        List<string> tongueTwisterCollection;
         bool isRecoEnabled = false;
         IAsyncOperation<SpeechRecognitionResult> recoOperation;
         SpeechRecognizer recognizer;
+        int indexForJoke = 0;
+        int indexForTwister = 0;
+        const int NUM_OF_JOKES = 3;
+        const int NUM_OF_TWISTERS = 3;
 
         public MainPage()
         {
@@ -55,24 +59,24 @@ namespace Joker2
         {
             if (jokeCollection == null)
             {
-                jokeCollection = new Dictionary<string, string>();
-                jokeCollection.Add("one", "joke number 1");
-                jokeCollection.Add("two", "joke number 2");
-                jokeCollection.Add("three", "What do you do if a blond throws a grenade at you? Pull the pin and throw it back.");
+                jokeCollection = new List<string>();
+                jokeCollection.Add("joke number 1");
+                jokeCollection.Add("joke number 2");
+                jokeCollection.Add("What do you do if a blond throws a grenade at you? Pull the pin and throw it back.");
             }
-            if (jokeCollection == null)
+            if (tongueTwisterCollection == null)
             {
-                tongueTwisterCollection = new Dictionary<string, string>();
-                tongueTwisterCollection.Add("one", "twister number 1");
-                tongueTwisterCollection.Add("two", "twister number 2");
-                tongueTwisterCollection.Add("three", "Socks on Knox And Knox in box. Fox in socks On box on Knox.");
+                tongueTwisterCollection = new List<string>();
+                tongueTwisterCollection.Add("twister number 1");
+                tongueTwisterCollection.Add("twister number 2");
+                tongueTwisterCollection.Add("Socks on Knox And Knox in box. Fox in socks On box on Knox.");
             }
 
             if (recognizer == null)
-                {
-                    recognizer = new SpeechRecognizer();
-                    recognizer.Grammars.AddGrammarFromUri("CommandsGrammar", new Uri("ms-appx:///SRGSGrammar1.xml", UriKind.Absolute));
-                }
+            {
+                recognizer = new SpeechRecognizer();
+                recognizer.Grammars.AddGrammarFromUri("CommandsGrammar", new Uri("ms-appx:///SRGSGrammar1.xml", UriKind.Absolute));
+            }
 
             string voiceCommand;
             if (this.NavigationContext.QueryString != null && this.NavigationContext.QueryString.ContainsKey("voiceCommandName"))
@@ -85,11 +89,15 @@ namespace Joker2
                     {
                         case "NextJoke":
                             templatePth = "JokeTemplate.xml";
-                            arg = "What do you do if a blond throws a grenade at you? Pull the pin and throw it back.";
+                            arg = jokeCollection.ElementAt(indexForJoke);
+                            indexForJoke++;
+                            indexForJoke %= NUM_OF_JOKES;
                             break;
                         case "NextTongueTwister":
                             templatePth = "TongueTwisterTemplate.xml";
-                            arg = "Socks on Knox And Knox in box. Fox in socks On box on Knox.";
+                            arg = tongueTwisterCollection.ElementAt(indexForTwister);
+                            indexForTwister++;
+                            indexForTwister %= NUM_OF_TWISTERS;
                             break;
                         default:
                             templatePth = string.Empty;
@@ -145,13 +153,6 @@ namespace Joker2
 
             using (SpeechRecognizerUI recognizerUI = new SpeechRecognizerUI())
             {
-               /* recognizerUI.Settings.ListenText = "Listening the command...";
-                recognizerUI.Settings.ExampleText = "\"Next\"";
-                recognizerUI.Settings.ReadoutEnabled = false;
-                recognizerUI.Settings.ShowConfirmation = false;
-
-                recognizerUI.Recognizer.Grammars.AddGrammarFromUri("CommandsGrammar", new Uri("ms-appx:///SRGSGrammar1.xml", UriKind.Absolute));
-                */
                 while (this.isRecoEnabled)
                 {
                     try
@@ -177,16 +178,19 @@ namespace Joker2
                                 {
                                     case "joke":
                                         filePath = "JokeTemplate.xml";
-                                        arg = "smth from joke-list"; //smth from joke-list
+                                        arg = jokeCollection.ElementAt(indexForJoke);
+                                        indexForJoke++;
+                                        indexForJoke %= NUM_OF_JOKES;
                                         break;
                                     case "tongue-twister":
                                         filePath = "TongueTwisterTemplate.xml";
-                                        arg = "smth from tng-tw-list"; //smth from tng-tw-list
+                                        arg = tongueTwisterCollection.ElementAt(indexForTwister);
+                                        indexForTwister++;
+                                        indexForTwister %= NUM_OF_TWISTERS;
                                         break;
                                     default:
                                         break;
                                 }
-
                                 ReproduceSpeech(filePath, arg);
                             }
 
@@ -209,42 +213,6 @@ namespace Joker2
                         }
                     }
                 }
-                
-                
-                /*
-                SpeechRecognitionUIResult result = await recognizerUI.RecognizeWithUIAsync();
-                if (result.RecognitionResult.TextConfidence == SpeechRecognitionConfidence.Rejected)
-                {
-                    using (var speaker = new SpeechSynthesizer())
-                    {
-                        await speaker.SpeakTextAsync(result.RecognitionResult.Text);
-                    }
-                    return;
-                }
-                SemanticProperty genre;
-
-                if (result.RecognitionResult.Semantics.TryGetValue("genre", out genre))
-                {
-                    string filePath = string.Empty;
-                    object arg = null;
-                    string displayFormat = string.Empty;
-
-                    switch (genre.Value.ToString())
-                    {
-                        case "joke":
-                            filePath = "JokeTemplate.xml";
-                            arg = "smth from joke-list"; //smth from joke-list
-                            break;
-                        case "tongue-twister":
-                            filePath = "TongueTwisterTemplate.xml";
-                            arg = "smth from tng-tw-list"; //smth from tng-tw-list
-                            break;
-                        default:
-                            break;
-                    }
-
-                    ReproduceSpeech(filePath, arg);
-                }*/
             }
         }
     }
