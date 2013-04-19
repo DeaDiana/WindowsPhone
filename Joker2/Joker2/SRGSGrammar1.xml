@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<grammar version="1.0" xml:lang="en-US" root="genres" tag-format="semantics/1.0" 
+         xmlns="http://www.w3.org/2001/06/grammar" 
+         xmlns:sapi="http://schemas.microsoft.com/Speech/2002/06/SRGSExtensions">
+
+  <rule id="genres" scope="public">
+    <one-of>
+      <item> joke</item>
+      <item> tongue-twister </item>
+    </one-of>
+  </rule>
+</grammar>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.0">
+  <CommandSet xml:lang="en-US">
+    <CommandPrefix>Joker</CommandPrefix>
+    <Example> Next joke </Example>
+
+    <Command Name="NextJoke">
+      <Example> Next Joke </Example>
+      <ListenFor> Next [joke]</ListenFor>
+      <Feedback> Searching the joke... </Feedback>
+      <Navigate />
+    </Command>
+  </CommandSet>
+</VoiceCommands>
