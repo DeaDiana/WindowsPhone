@@ -6,8 +6,8 @@
 
   <rule id="genres" scope="public">
     <one-of>
-      <item>joke <tag>out.genre="joke"</tag></item>
-      <item> tongue-twister <tag>out.genre="tongue-twister"</tag></item>
+      <item>next joke <tag>out.genre="joke"</tag></item>
+      <item> next tongue-twister <tag>out.genre="tongue-twister"</tag></item>
     </one-of>
   </rule>
 </grammar>
