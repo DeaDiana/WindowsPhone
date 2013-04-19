@@ -1,3 +1,5 @@
 ﻿<speak version="1.0" xml:lang="en-US">
-  The Joke. <say-as>{0}</say-as>
+  The Joke. <voice age="7" gender="male">
+    <prosody pitch = "low" rate = "slow" volume ="loud"> {0} Ha-ha-ha </prosody>
+  </voice>
 </speak>

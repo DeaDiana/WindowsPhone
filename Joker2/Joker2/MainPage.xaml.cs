@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -81,11 +82,20 @@ namespace Joker2
 
         private async void ReproduceSpeech(string templatePth, object currentJoke)
         {
-            //construct ssml
-            using (var speaker = new SpeechSynthesizer())
+            if (templatePth == string.Empty)
+                return;
+            string ssml;
+
+            using (var f = App.GetResourceStream(new Uri(templatePth, UriKind.Relative)).Stream)
+            using (var reader = new StreamReader(f))
             {
-             //   await synthesizer.SpeakSsmlAsync(ssml);
-                await speaker.SpeakTextAsync("reproducing simple text");
+                string template = reader.ReadToEnd();
+                ssml = string.Format(template, currentJoke);
+                f.Close();
+            }
+            using (var synthesizer = new SpeechSynthesizer())
+            {
+                await synthesizer.SpeakSsmlAsync(ssml);
             }
         }
 
@@ -135,10 +145,8 @@ namespace Joker2
                             break;
                     }
 
-                    //upperText.Text = arg;     //to display
                     ReproduceSpeech(filePath, arg);
                 }
-                //ReproduceSpeech("", "");
             }
         }
     }
