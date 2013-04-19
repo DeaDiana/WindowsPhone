@@ -1,3 +1,5 @@
 ﻿<speak version="1.0" xml:lang="en-US">
-  The Tongue-twister. <say-as>{0}</say-as>
+  The Tongue-twister. <voice age="7" gender="female">
+  <prosody pitch = "high" rate = "fast" volume ="loud"> {0} </prosody>
+</voice>
 </speak>

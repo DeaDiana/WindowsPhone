@@ -18,8 +18,6 @@ namespace Joker2
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        //SpeechRecognizer recognizer;
-        //IAsyncOperation<SpeechRecognitionResult> speech;
         public const string VoiceCommandFile = @"JokerCommands.xml";
 
         public MainPage()
@@ -48,14 +46,6 @@ namespace Joker2
             }
         }
 
-      /*  private void InitVoiceCommands()
-        {
-            Uri cmdList = new Uri("ms-appx:///JokerCommands.xml", UriKind.Absolute);
-            recognizer = new SpeechRecognizer();
-            recognizer.Grammars.AddGrammarFromUri("JokerCommands", cmdList);
-            //recognizer.Settings.EndSilenceTimeout = TimeSpan.FromSeconds(1.2);
-        }
-        */
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             string voiceCommand;
@@ -63,21 +53,25 @@ namespace Joker2
             {
                 if (NavigationContext.QueryString.TryGetValue("voiceCommandName", out voiceCommand))
                 {
-                    string filePath = string.Empty;
+                    string templatePth = string.Empty;
                     string arg = string.Empty;
                     switch (voiceCommand)
                     {
                         case "NextJoke":
+                            templatePth = "JokeTemplate.xml";
                             arg = "What do you do if a blond throws a grenade at you? Pull the pin and throw it back.";
                             break;
+                        case "NextTongueTwister":
+                            templatePth = "TongueTwisterTemplate.xml";
+                            arg = "Socks on Knox And Knox in box. Fox in socks On box on Knox.";
+                            break;
                         default:
-                            filePath = string.Empty;
+                            templatePth = string.Empty;
                             break;
                     }
-                    ReproduceSpeech("JokeTemplate.xml", arg);
+                    ReproduceSpeech(templatePth, arg);
                 }
             }
-           // base.OnNavigatedTo(e);
         }
 
         private async void ReproduceSpeech(string templatePth, object currentJoke)

@@ -7,8 +7,15 @@
 
     <Command Name="NextJoke">
       <Example> Next Joke </Example>
-      <ListenFor> Next [joke]</ListenFor>
+      <ListenFor> Next Joke </ListenFor>
       <Feedback> Searching the joke... </Feedback>
+      <Navigate />
+    </Command>
+  <Command Name="NextTongueTwister">
+      <Example> Next Tongue-twister </Example>
+      <ListenFor> Next Tongue-[twister] </ListenFor>
+      <ListenFor> Next [Tongue]-twister </ListenFor>
+      <Feedback> Searching the tongue-twister... </Feedback>
       <Navigate />
     </Command>
   </CommandSet>
