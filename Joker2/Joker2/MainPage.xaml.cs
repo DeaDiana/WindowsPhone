@@ -27,7 +27,7 @@ namespace Joker2
         int indexForJoke = 0;
         int indexForTwister = 0;
         const int NUM_OF_JOKES = 3;
-        const int NUM_OF_TWISTERS = 3;
+        const int NUM_OF_TWISTERS = 7;
 
         public MainPage()
         {
@@ -60,18 +60,22 @@ namespace Joker2
             if (jokeCollection == null)
             {
                 jokeCollection = new List<string>();
-                jokeCollection.Add("joke number 1");
-                jokeCollection.Add("joke number 2");
                 jokeCollection.Add("What do you do if a blond throws a grenade at you? Pull the pin and throw it back.");
+                jokeCollection.Add("How many body builders does it take to change a light bulb? Nine. One to screw in the bulb while the other 8 hold up the mirrors.");
+                jokeCollection.Add("joke number 2");
+                
             }
             if (tongueTwisterCollection == null)
             {
                 tongueTwisterCollection = new List<string>();
-                tongueTwisterCollection.Add("twister number 1");
-                tongueTwisterCollection.Add("twister number 2");
                 tongueTwisterCollection.Add("Socks on Knox And Knox in box. Fox in socks On box on Knox.");
+                tongueTwisterCollection.Add("Look, sir. Look, sir. Mr. Knox, sir. Let’s do tricks with Bricks and blocks, sir. Let’s do tricks with Chicks and clocks, sir. ");
+                tongueTwisterCollection.Add("Chicks with bricks comee. Chicks with blocks come. Chicks with bricks and Blocks and clocks come. ");
+                tongueTwisterCollection.Add("First, I’ll make a Quick trick brick stack. Then I’ll make a Quick trick block stack. ");
+                tongueTwisterCollection.Add("You can make a Quick trick chick stack. You can make a Quick trick clock stack. And here’s a New trick, Mr. Knox… Socks on chicks And chicks on fox. Fox on clocks On bricks and blocks. Bricks and blocks On Knox on box. ");
+                tongueTwisterCollection.Add("Please, sir. I don’t Like this trick, sir. My tongue isn’t Quick or slick, sir. I get all those Ticks and clocks, sir, Mixed up with the Chicks and tocks, sir. I can’t do it, Mr. Fox, sir. I’m so sorry, Mr. Knox, sir. ");
             }
-
+                tongueTwisterCollection.Add("Who sees who sew Whose new socks, sir? You see Sue sew Sue’s new socks, sir.");
             if (recognizer == null)
             {
                 recognizer = new SpeechRecognizer();
@@ -108,7 +112,7 @@ namespace Joker2
             }
         }
 
-        private async void ReproduceSpeech(string templatePth, object currentJoke)
+        private async void ReproduceSpeech(string templatePth, object currentText)
         {
             if (templatePth == string.Empty)
                 return;
@@ -118,7 +122,7 @@ namespace Joker2
             using (var reader = new StreamReader(f))
             {
                 string template = reader.ReadToEnd();
-                ssml = string.Format(template, currentJoke);
+                ssml = string.Format(template, currentText);
                 f.Close();
             }
             using (var synthesizer = new SpeechSynthesizer())
@@ -162,7 +166,10 @@ namespace Joker2
 
                         if (recoResult.TextConfidence < SpeechRecognitionConfidence.Medium)
                         {
-                            //await speaker.SpeakTextAsync("Ha-ha-ha. Say it louder!");
+                            using (var synthesizer = new SpeechSynthesizer())
+                            {
+                                await synthesizer.SpeakTextAsync("Ha-ha-ha. Say it louder!");
+                            }
                         }
                         else
                         {
