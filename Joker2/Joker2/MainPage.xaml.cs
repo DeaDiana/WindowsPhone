@@ -67,7 +67,7 @@ namespace Joker2
                 jokeCollection.Add("Little Johnny watched, fascinated, as his mother smoothed cold cream on her face. 'Why do you do that, Mommy?' 'To make myself beautiful,' said his mother, who then began removing the cream with a tissue. 'What's the matter?' asked Little Johnny. 'Giving up?'");
                 jokeCollection.Add("John: 'I'm glad you named me John.' Mother: 'Why?' John: 'Because that's what all the kids at school call me.'");
                 NUM_OF_JOKES = jokeCollection.Count();
-                
+
             }
             if (tongueTwisterCollection == null)
             {
@@ -80,7 +80,7 @@ namespace Joker2
                 tongueTwisterCollection.Add("Please, sir. I don’t Like this trick, sir. My tongue isn’t Quick or slick, sir. I get all those Ticks and clocks, sir, Mixed up with the Chicks and tocks, sir. I can’t do it, Mr. Fox, sir. I’m so sorry, Mr. Knox, sir. ");
                 NUM_OF_TWISTERS = tongueTwisterCollection.Count();
             }
-                tongueTwisterCollection.Add("Who sees who sew Whose new socks, sir? You see Sue sew Sue’s new socks, sir.");
+            tongueTwisterCollection.Add("Who sees who sew Whose new socks, sir? You see Sue sew Sue’s new socks, sir.");
             if (recognizer == null)
             {
                 recognizer = new SpeechRecognizer();
@@ -126,7 +126,7 @@ namespace Joker2
             using (var f = App.GetResourceStream(new Uri(templatePth, UriKind.Relative)).Stream)
             using (var reader = new StreamReader(f))
             {
-                string template = reader.ReadToEnd();
+                string template = await reader.ReadToEndAsync();
                 ssml = string.Format(template, currentText);
                 f.Close();
             }
